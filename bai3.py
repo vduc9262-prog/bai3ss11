@@ -39,28 +39,54 @@ Nhập vào đây: """)
         if product_list == []:
             print("Danh sách sản phẩm hiện đang trống !")
     
-    elif choice == "2": 
-            new_id = input("moi ban nhập mã sản phẩm: ").strip().upper()
-            new_name = input("moi ban nhập tên sản phẩm: ").strip()
-            while True:
-                new_price  = int(input("moi ban nhập giá sản phẩm: "))
+    elif choice == "2":
+        new_id = input("Mời bạn nhập mã sản phẩm: ").strip().upper()
 
-                if new_price < 0:
-                    print('ko dc nhỏ hơn 0 yeu cau nhap lại !')
+        is_duplicate = False
+
+        for p in product_list:
+            if p["product_id"] == new_id:
+                is_duplicate = True
+                break
+
+        if is_duplicate:
+            print("Mã sản phẩm bị trùng")
+            continue
+
+        new_name = input("Mời bạn nhập tên sản phẩm: ").strip()
+
+        while True:
+            try:
+                new_price = int(input("Mời bạn nhập giá sản phẩm: "))
+
+                if new_price <= 0:
+                    print("Giá/Số lượng không hợp lệ")
                 else:
                     break
-            while True:
-                new_quantity = int(input("moi ban nhập số lượng sản phẩm: "))
 
-                if new_quantity < 0:
-                    print('ko dc nhỏ hơn 0 yeu cau nhap lại !')
-                else: 
+            except ValueError:
+                print("Giá/Số lượng không hợp lệ")
+
+        while True:
+            try:
+                new_quantity = int(input("Mời bạn nhập số lượng sản phẩm: "))
+
+                if new_quantity <= 0:
+                    print("Giá/Số lượng không hợp lệ")
+                else:
                     break
-            
 
-            product_list.append({"product_id": new_id, "product_name": new_name, "price": new_price, "quantity": new_quantity})
-            print("Thêm sản phẩm thành công")
+            except ValueError:
+                print("Giá/Số lượng không hợp lệ")
 
+        product_list.append({
+            "product_id": new_id,
+            "product_name": new_name,
+            "price": new_price,
+            "quantity": new_quantity
+        })
+
+        print("Thêm sản phẩm thành công")
     elif choice == "3":
         update_id = input("Nhập mã sản phẩm cần cập nhật: ").strip().upper()
 
@@ -103,17 +129,19 @@ Nhập vào đây: """)
             print("Không tìm thấy mã sản phẩm cần cập nhật!")
 
 
-
     elif choice == "4":
-        print("\n--- XÓA SẢN PHẨM ---")
-        id_new = input("Nhập mã sản phẩm cần xóa: ").strip().upper()
-        
-        for i, p in enumerate(product_list):
-            if p['product_id'] == id_new:
-                del product_list[i]
-                print("Xóa sản phẩm thành công!")
-                break
-            else:
+            print("\n--- XÓA SẢN PHẨM ---")
+            delete_id = input("Nhập mã sản phẩm cần xóa: ").strip().upper()
+
+            found = False
+            for i, prod in enumerate(product_list):
+                if prod["product_id"] == delete_id:
+                    product_list.pop(i)
+                    print(f"Đã xóa sản phẩm: {delete_id}")
+                    found = True
+                    break
+
+            if not found:
                 print("Không tìm thấy mã sản phẩm cần xoá!")
 
     elif choice == "5":
@@ -123,3 +151,40 @@ Nhập vào đây: """)
     else:
         print("Lựa chọn không hợp lệ, vui lòng nhập lại!")
 
+# Phân tích Input/Output
+# Input
+# Tên biến	Ý nghĩa	Kiểu dữ liệu
+# full_name	Họ tên người dùng	str
+# age	Tuổi	int
+# Output
+# Nội dung
+# Thông tin đã nhập
+# Kết quả xử lý theo yêu cầu
+# Đề xuất giải pháp
+# Hàm/phương thức sử dụng
+# input() để nhận dữ liệu từ người dùng.
+# int() để chuyển đổi dữ liệu sang số nguyên.
+# if-elif-else để xử lý điều kiện.
+# print() để hiển thị kết quả.
+# Kiểm tra dữ liệu hợp lệ
+# Tuổi phải là số nguyên dương.
+# Họ tên không được để trống.
+# Các bước thực hiện
+# Nhập dữ liệu.
+# Kiểm tra tính hợp lệ.
+# Xử lý nghiệp vụ.
+# Hiển thị kết quả.
+# 3. Thiết kế thuật toán (Pseudocode)
+# Bắt đầu
+
+# Nhập full_name
+# Nhập age
+
+# Nếu age <= 0
+#     Thông báo dữ liệu không hợp lệ
+# Ngược lại
+#     Xử lý theo yêu cầu
+
+# Hiển thị kết quả
+
+# Kết thúc
